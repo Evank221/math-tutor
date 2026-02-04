@@ -15,10 +15,10 @@ struct ContentView: View {
     @State private var answer = ""
     @State private var audioplayer: AVAudioPlayer!
     @State private var buttonisdisabled = false
-    @State private var textfieldisdiabled = false
+    @State private var textfieldisdisabled = false
     @State private var message = ""
     @FocusState private var isfocused: Bool
-    @State private var emojies = ["🍕", "🍎", "🍏", "🐵", "👽", "🧠", "🧜🏽‍♀️", "🧙🏿‍♂️", "🥷", "🐶", "🐹", "🐣", "🦄", "🐝", "🦉", "🦋", "🦖", "🐙", "🦞", "🐟", "🦔", "🐲", "🌻", "🌍", "🌈", "🍔", "🌮", "🍦", "🍩", "🍪"]
+    private let emojies = ["🍕", "🍎", "🍏", "🐵", "👽", "🧠", "🧜🏽‍♀️", "🧙🏿‍♂️", "🥷", "🐶", "🐹", "🐣", "🦄", "🐝", "🦉", "🦋", "🦖", "🐙", "🦞", "🐟", "🦔", "🐲", "🌻", "🌍", "🌈", "🍔", "🌮", "🍦", "🍩", "🍪"]
     
     var body: some View {
         VStack {
@@ -46,10 +46,10 @@ struct ContentView: View {
                     RoundedRectangle(cornerRadius: 5)
                         .stroke(.gray, lineWidth: 2)
                 }
-            multilineTextAlignment(.center)
+                .multilineTextAlignment(.center)
                 .keyboardType(.numberPad)
                 .focused($isfocused)
-                .disabled(textfieldisdiabled)
+                .disabled(textfieldisdisabled)
             
             Button("guess"){
         //TODO: button action
@@ -62,9 +62,9 @@ struct ContentView: View {
                     message = "correct"
                 } else {
                     playSound(soundName: "wrong")
-                    message = " sorry, the correct answer is \(firstnumber+secondnumber)"
+                    message = " sorry, the correct answer is \(firstnumber + secondnumber)"
                 }
-                textfieldisdiabled = true
+                textfieldisdisabled = true
                 buttonisdisabled = true
                 
             }
@@ -80,11 +80,11 @@ struct ContentView: View {
                 .foregroundStyle(message == "correct" ? .green : .red)
                 .animation(.default, value: message)
             
-            if message != ""{
+            if message != "" {
                 Button("play again?"){
                     message = ""
                     answer = ""
-                    textfieldisdiabled = false
+                    textfieldisdisabled = false
                     buttonisdisabled = false
                     genEquation()
                 }
